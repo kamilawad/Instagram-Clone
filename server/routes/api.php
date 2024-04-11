@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\CommentController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -41,4 +42,9 @@ Route::controller(PostController::class)->group(function () {
 Route::controller(LikeController::class)->group(function () {
     Route::post('likePost', 'likePost');
     Route::post('getPostLikes', 'getPostLikes');
+});
+
+Route::controller(CommentController::class)->group(function () {
+    Route::post('addComment', 'addComment');
+    Route::post('getPostComments', 'getPostComments');
 });
