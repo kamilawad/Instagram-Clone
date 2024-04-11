@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FollowerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,4 +23,9 @@ Route::controller(UserController::class)->group(function () {
     Route::post('refresh', 'refresh');
     Route::post('editProfile', 'editProfile');
     Route::get('getUserData', 'getUserData');
+});
+
+Route::controller(FollowerController::class)->group(function () {
+    Route::post('follow', 'follow');
+    Route::post('unfollow', 'unfollow');
 });
