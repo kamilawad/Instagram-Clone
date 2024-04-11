@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\LikeController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -35,4 +36,9 @@ Route::controller(PostController::class)->group(function () {
     Route::post('createPost', 'addPost');
     Route::get('getFeedPosts', 'getFeedPosts');
     Route::get('getUserPosts', 'getUserPosts');
+});
+
+Route::controller(LikeController::class)->group(function () {
+    Route::post('likePost', 'likePost');
+    Route::post('getPostLikes', 'getPostLikes');
 });
