@@ -28,4 +28,5 @@ Route::controller(UserController::class)->group(function () {
 Route::controller(FollowerController::class)->group(function () {
     Route::post('follow', 'follow');
     Route::post('unfollow', 'unfollow');
+    Route::get('getFollow', 'getFollow');
 });

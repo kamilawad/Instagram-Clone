@@ -14,6 +14,24 @@ class FollowerController extends Controller
         $this->middleware('auth:api');
     }
 
+    public function getFollow(Request $request)
+    {
+        $user = Auth::user();
+
+        if(!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        $followers = $user->followers;
+        $following = $user->following;
+
+        return response()->json([
+            'message' => 'Found',
+            'followedBy' => $followers,
+            'following' => $following,
+        ]);
+    }
+
     public function follow(Request $request)
     {
         //$folower = Auth::user();
@@ -30,13 +48,14 @@ class FollowerController extends Controller
                 'message' => 'You already followed this user',
             ]);
         }
-
+        
+        //$follower->following()->attach($following);
         Follower::create([
             'follower_id' => $follower->id,
             'following_id' => $request->following_id,
         ]);
 
-        return response()->json(['message' => 'User followed',$follower->following,$follower->followers]);
+        return response()->json(['message' => 'User followed']);
     }
 
     public function unfollow(Request $request)
@@ -55,7 +74,7 @@ class FollowerController extends Controller
                 'message' => 'You already not following this user',
             ]);
         }
-
+        //$follower->following()->detach($User::find($request->following_id);
         $follow ->delete();
 
         return response()->json(['message' => 'User unfollowed',$follower->following,$follower->followers]);
