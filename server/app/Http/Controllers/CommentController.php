@@ -43,7 +43,7 @@ class CommentController extends Controller
             'comment' => 'required|string',
         ]);
 
-        $follow = $user->following()->where('following_id', $post->user_id)->exists();
+        $follow = $user->following()->where('following_id', $user->user_id)->exists();
         if (!$follow) {
             return response()->json([
                 'status' => 'error',
