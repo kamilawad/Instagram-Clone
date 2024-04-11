@@ -33,4 +33,6 @@ Route::controller(FollowerController::class)->group(function () {
 
 Route::controller(PostController::class)->group(function () {
     Route::post('createPost', 'addPost');
+    Route::get('getFeedPosts', 'getFeedPosts');
+    Route::get('getUserPosts', 'getUserPosts');
 });

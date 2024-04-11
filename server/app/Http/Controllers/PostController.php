@@ -14,6 +14,33 @@ class PostController extends Controller
         $this->middleware('auth:api');
     }
 
+    public function getFeedPosts()
+    {
+        $user = Auth::user();
+        //$posts = Post::paginate(10);
+
+        $following = $user->following()->pluck('following_id');
+        $following = $following->push($user->id);
+        $posts = Post::whereIn('user_id', $following)->orderBy('created_at', 'desc')->get();
+
+        return response()->json([
+            'status' => 'success',
+            'user' => $user,
+            'posts' => $posts,
+        ]);
+    }
+
+    public function getUserPosts()
+    {
+        $user = Auth::user();
+        $posts = $user->posts;
+
+        return response()->json([
+            'status' => 'success',
+            'user' => $user,
+        ]);
+    }
+
     public function addPost(Request $request)
     {
         $user = Auth::user();
