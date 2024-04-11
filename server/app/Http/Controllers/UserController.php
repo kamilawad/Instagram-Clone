@@ -98,12 +98,33 @@ class UserController extends Controller
         ]);
     }
 
+    public function getUserData()
+    {
+        $user = Auth::user();
+
+        if(!$user){
+            return response()->json([               
+                'status'=> 'failed',
+                'message'=> 'Not authenticated'
+            ], 401);
+        }
+
+        $posts = $user->posts;
+        return response()->json([
+            'user' => $user,
+            'posts' => $posts,
+        ]);
+    }
+
     public function editProfile(Request $request)
     {
         $user = Auth::user();
 
         if(!$user){
-            return response()->json(['status'=> 'failed','message'=> 'not authenticated']);
+            return response()->json([               
+                'status'=> 'failed',
+                'message'=> 'Not authenticated'
+            ], 401);
         }
 
         $request->validate([
@@ -121,8 +142,8 @@ class UserController extends Controller
             $user->username = $request->username;
         }
 
-        if ($request->hasFile('profile_image')) {
-            $file = $request->file('profile_image');
+        if ($request->hasFile('profile_picture')) {
+            $file = $request->file('profile_picture');
             $extension = $file->getClientOriginalExtension();
             $filename = time() . '.' . $extension;
             $file->move(public_path('profile_picture/'), $filename);

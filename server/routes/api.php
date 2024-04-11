@@ -21,4 +21,5 @@ Route::controller(UserController::class)->group(function () {
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
     Route::post('editProfile', 'editProfile');
+    Route::get('getUserData', 'getUserData');
 });
