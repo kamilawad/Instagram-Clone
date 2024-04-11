@@ -77,6 +77,6 @@ class FollowerController extends Controller
         //$follower->following()->detach($User::find($request->following_id);
         $follow ->delete();
 
-        return response()->json(['message' => 'User unfollowed',$follower->following,$follower->followers]);
+        return response()->json(['message' => 'User unfollowed']);
     }
 }

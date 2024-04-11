@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FollowerController;
-
+use App\Http\Controllers\PostController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -29,4 +29,8 @@ Route::controller(FollowerController::class)->group(function () {
     Route::post('follow', 'follow');
     Route::post('unfollow', 'unfollow');
     Route::get('getFollow', 'getFollow');
+});
+
+Route::controller(PostController::class)->group(function () {
+    Route::post('createPost', 'addPost');
 });
