@@ -21,7 +21,7 @@ class PostController extends Controller
 
         $following = $user->following()->pluck('following_id');
         $following = $following->push($user->id);
-        $posts = Post::whereIn('user_id', $following)->orderBy('created_at', 'desc')->get();
+        $posts = Post::whereIn('user_id', $following)->with('comments')->orderBy('created_at', 'desc')->get();
 
         return response()->json([
             'status' => 'success',
