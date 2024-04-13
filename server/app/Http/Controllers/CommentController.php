@@ -42,8 +42,16 @@ class CommentController extends Controller
             'post_id' => 'required|integer',
             'comment' => 'required|string',
         ]);
+        
+        $post = Post::find($request->post_id);
+        if (!$post) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Post not found',
+            ], 404);
+        }
 
-        $follow = $user->following()->where('following_id', $user->user_id)->exists();
+        $follow = $user->following()->where('following_id', $post->user_id)->exists();
         if (!$follow) {
             return response()->json([
                 'status' => 'error',

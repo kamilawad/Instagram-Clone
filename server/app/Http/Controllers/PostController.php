@@ -21,7 +21,11 @@ class PostController extends Controller
 
         $following = $user->following()->pluck('following_id');
         $following = $following->push($user->id);
-        $posts = Post::whereIn('user_id', $following)->with('comments')->orderBy('created_at', 'desc')->get();
+        $posts = Post::whereIn('user_id', $following)->with('comments', 'user')->orderBy('created_at', 'desc')->get();
+
+        foreach ($posts as $post) {
+            $post->likes_count = $post->likes()->count();
+        }
 
         return response()->json([
             'status' => 'success',
