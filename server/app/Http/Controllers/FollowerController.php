@@ -32,6 +32,26 @@ class FollowerController extends Controller
         ]);
     }
 
+    public function getAllUsers()
+    {
+        $user = Auth::user();
+
+        if(!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        $allUsers = User::where('id', '!=', $user->id)->get();
+
+        foreach ($allUsers as $userToFollow) {
+            $userToFollow->following = $user->following()->where('following_id', $userToFollow->id)->exists();
+        }
+
+        return response()->json([
+            'message' => 'Found',
+            'users' => $allUsers,
+        ]);
+    }
+
     public function follow(Request $request)
     {
         //$folower = Auth::user();

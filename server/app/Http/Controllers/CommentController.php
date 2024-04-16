@@ -27,7 +27,7 @@ class CommentController extends Controller
                 'message' => 'Post not found',
             ], 404);
         }
-        $comments = $post->comments;
+        $comments = $post->comments()->with('user')->get();
 
         return response()->json([
             'status' => 'success',
@@ -51,13 +51,13 @@ class CommentController extends Controller
             ], 404);
         }
 
-        $follow = $user->following()->where('following_id', $post->user_id)->exists();
+        /*$follow = $user->following()->where('following_id', $post->user_id)->exists();
         if (!$follow) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'You must follow the user to like their post',
             ], 403);
-        }
+        }*/
 
         $comment = new Comment;
         $comment->user_id = $user->id;

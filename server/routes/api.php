@@ -31,6 +31,7 @@ Route::controller(FollowerController::class)->group(function () {
     Route::post('follow', 'follow');
     Route::post('unfollow', 'unfollow');
     Route::get('getFollow', 'getFollow');
+    Route::get('getAllUsers', 'getAllUsers');
 });
 
 Route::controller(PostController::class)->group(function () {
